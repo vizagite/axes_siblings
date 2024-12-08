@@ -13,8 +13,19 @@ def plot_map(filtered_cities, filtered_cities_one, filtered_cities_two, bounds, 
         tiles="Cartodb Positron", 
         max_bounds=True,
         max_bounds_visible=True, 
-        attr = 'OpenStreetMap contributors, CARTO, <a href="https://github.com/vizagite">github.com/vizagite</a>'
+        attr = 'OpenStreetMap contributors, CARTO, <a href="https://github.com/vizagite/axes_siblings">github.com/vizagite</a>'
     )
+    html = """
+    <div id="info-box" style="position: fixed; 
+                top: 10px; right: 10px; width: 300px; height: auto; 
+                background-color: white; z-index: 9999; font-size: 14px; padding: 10px; border: 1px solid black;">
+        <button onclick="document.getElementById('info-box').style.display='none'" style="float: right;">&times;</button>
+        <p><strong>What?</strong><br>What other major cities lie across same latitude and longitude as Vizag city.</p>
+        <p><strong>Why?</strong><br>It's fun, and if you think of cities sharing same latitude they mostly share same stargazing things and day durations. similarly, for cities sharing same longitude they mostly have same sunrise and sunset timings.</p>
+        <p><strong>Three colors?</strong><br>Gray cities lie on same axes as vizag, orange a bit closer but not exact, yellow a lit bit further.<br><br><b>Click on each city, and zoom out and in!<b></p>
+    </div>
+    """
+    m.get_root().html.add_child(folium.Element(html))
 
     vertical_band = Polygon([(bounds[0], -90), (bounds[0], 90), (bounds[2], 90), (bounds[2], -90)])    
     horizontal_band = Polygon([(-180, bounds[1]), (180, bounds[1]), (180, bounds[3]), (-180, bounds[3])])    
